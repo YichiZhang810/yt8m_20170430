@@ -233,14 +233,12 @@ class LstmModel(models.BaseModel):
     print(stacked_lstm)
     print('----------')
 
-    cell = rnn_cell_modern.HighwayRNNCell(512, num_highway_layers = 3)
-
     print('----------')
     print('cell')
     print(type(cell))
     print(cell)
     print('----------')
-    
+
     outputs, state = tf.nn.dynamic_rnn(cell, model_input,
                                        sequence_length=num_frames,
                                        dtype=tf.float32)
@@ -260,6 +258,10 @@ class LstmModel(models.BaseModel):
     print(type(state[-1].h))
     print(state[-1].h)
     print('----------')
+
+    state = tf.expand_dims(state,axis=1)
+    state = tf.expand_dims(state,axis=1)
+    state = slim.convolution(state, FLAGS.num_filters, 1, 1, "SAME")
 
 
     return aggregated_model().create_model(
