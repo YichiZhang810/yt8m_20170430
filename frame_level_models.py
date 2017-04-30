@@ -234,7 +234,7 @@ class LstmModel(models.BaseModel):
     print('----------')
 
 
-    outputs, state = tf.nn.dynamic_rnn(cell, model_input,
+    outputs, state = tf.nn.dynamic_rnn(stacked_lstm, model_input,
                                        sequence_length=num_frames,
                                        dtype=tf.float32)
     aggregated_model = getattr(video_level_models,
