@@ -16,7 +16,7 @@ from normalization_ops_modern import layer_norm
 
 from linear_modern import linear
 
-RNNCell = tf.nn.rnn_cell.RNNCell
+from tensorflow.contrib.rnn import RNNCell    
 
 
 class HighwayRNNCell(RNNCell):
