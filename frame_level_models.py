@@ -253,8 +253,21 @@ class RHNModel(models.BaseModel):
     
     cell = rnn_cell_modern.HighwayRNNCell(512, num_highway_layers = 3)
     loss = 0.0
-    with tf.variable_scope("RHN"):
-      outputs, state = tf.nn.dynamic_rnn(cell,model_input,sequence_length=num_frames,dtype=tf.float32)
+    # with tf.variable_scope("RHN"):
+    #   outputs, state = tf.nn.dynamic_rnn(cell,model_input,sequence_length=num_frames,dtype=tf.float32)
       
-    aggregated_model = getattr(video_level_models,FLAGS.video_level_classifier_model)
-    return aggregated_model().create_model(model_input=state,vocab_size=vocab_size,**unused_params)
+    # aggregated_model = getattr(video_level_models,FLAGS.video_level_classifier_model)
+    # return aggregated_model().create_model(model_input=state,vocab_size=vocab_size,**unused_params)
+
+
+    outputs, state = tf.nn.dynamic_rnn(cell, model_input,
+                                       sequence_length=num_frames,
+                                       dtype=tf.float32)
+
+    aggregated_model = getattr(video_level_models,
+                               FLAGS.video_level_classifier_model)
+
+    return aggregated_model().create_model(
+        model_input=state[-1].h,
+        vocab_size=vocab_size,
+        **unused_params)
