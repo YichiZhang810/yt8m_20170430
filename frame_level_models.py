@@ -233,11 +233,6 @@ class LstmModel(models.BaseModel):
     print(stacked_lstm)
     print('----------')
 
-    print('----------')
-    print('cell')
-    print(type(cell))
-    print(cell)
-    print('----------')
 
     outputs, state = tf.nn.dynamic_rnn(cell, model_input,
                                        sequence_length=num_frames,
@@ -260,8 +255,27 @@ class LstmModel(models.BaseModel):
     print('----------')
 
     state = tf.expand_dims(state,axis=1)
+
+    print('----------')
+    print('state')
+    print(type(state))
+    print(state)
+    print('----------')
+
     state = tf.expand_dims(state,axis=1)
+
+    print('----------')
+    print('state')
+    print(type(state))
+    print(state)
+    print('----------')
     state = slim.convolution(state, FLAGS.num_filters, 1, 1, "SAME")
+
+    print('----------')
+    print('state')
+    print(type(state))
+    print(state)
+    print('----------')
 
 
     return aggregated_model().create_model(
