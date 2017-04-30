@@ -247,14 +247,7 @@ class LstmModel(models.BaseModel):
     print(type(state))
     print(state)
     print('----------')
-    print('state[-1]')
-    print(type(state[-1]))
-    print(state[-1])
-    print('----------')
-    print('state[-1].h')
-    print(type(state[-1].h))
-    print(state[-1].h)
-    print('----------')
+
 
     state = tf.expand_dims(state,axis=1)
 
@@ -285,35 +278,35 @@ class LstmModel(models.BaseModel):
         vocab_size=vocab_size,
         **unused_params)
 
-class RHNModel(models.BaseModel):
+# class RHNModel(models.BaseModel):
 
-  def create_model(self, model_input, vocab_size, num_frames, **unused_params):
-    """Creates a model which uses an RHN network to represent the video.
-    """
-    rhn_size = FLAGS.rhn_cells
-    num_layers = FLAGS.rhn_layers
-    rhn_depth = FLAGS.rhn_depth
+#   def create_model(self, model_input, vocab_size, num_frames, **unused_params):
+#     """Creates a model which uses an RHN network to represent the video.
+#     """
+#     rhn_size = FLAGS.rhn_cells
+#     num_layers = FLAGS.rhn_layers
+#     rhn_depth = FLAGS.rhn_depth
     
-    #cell = HighwayRNNCell(rhn_size,vocab_size,1,rhn_depth)
-    # cell = HighwayRNNCell(rhn_size, num_highway_layers = rhn_depth)
+#     #cell = HighwayRNNCell(rhn_size,vocab_size,1,rhn_depth)
+#     # cell = HighwayRNNCell(rhn_size, num_highway_layers = rhn_depth)
     
-    cell = rnn_cell_modern.HighwayRNNCell(512, num_highway_layers = 3)
-    loss = 0.0
-    # with tf.variable_scope("RHN"):
-    #   outputs, state = tf.nn.dynamic_rnn(cell,model_input,sequence_length=num_frames,dtype=tf.float32)
+#     cell = rnn_cell_modern.HighwayRNNCell(512, num_highway_layers = 3)
+#     loss = 0.0
+#     # with tf.variable_scope("RHN"):
+#     #   outputs, state = tf.nn.dynamic_rnn(cell,model_input,sequence_length=num_frames,dtype=tf.float32)
       
-    # aggregated_model = getattr(video_level_models,FLAGS.video_level_classifier_model)
-    # return aggregated_model().create_model(model_input=state,vocab_size=vocab_size,**unused_params)
+#     # aggregated_model = getattr(video_level_models,FLAGS.video_level_classifier_model)
+#     # return aggregated_model().create_model(model_input=state,vocab_size=vocab_size,**unused_params)
 
 
-    outputs, state = tf.nn.dynamic_rnn(cell, model_input,
-                                       sequence_length=num_frames,
-                                       dtype=tf.float32)
+#     outputs, state = tf.nn.dynamic_rnn(cell, model_input,
+#                                        sequence_length=num_frames,
+#                                        dtype=tf.float32)
 
-    aggregated_model = getattr(video_level_models,
-                               FLAGS.video_level_classifier_model)
+#     aggregated_model = getattr(video_level_models,
+#                                FLAGS.video_level_classifier_model)
 
-    return aggregated_model().create_model(
-        model_input=state[-1].h,
-        vocab_size=vocab_size,
-        **unused_params)
+#     return aggregated_model().create_model(
+#         model_input=state[-1].h,
+#         vocab_size=vocab_size,
+#         **unused_params)
