@@ -8,14 +8,15 @@ import tensorflow as tf
 
 # from multiplicative_integration import multiplicative_integration, multiplicative_integration_for_multiple_inputs
 
-from tensorflow.python.ops.nn import rnn_cell
+# from tensorflow.nn import rnn_cell
+import tensorflow as tf
 import highway_network_modern
 from multiplicative_integration_modern import multiplicative_integration
 from normalization_ops_modern import layer_norm
 
 from linear_modern import linear
 
-RNNCell = rnn_cell.RNNCell
+RNNCell = tf.nn.rnn_cell.RNNCell
 
 
 class HighwayRNNCell(RNNCell):
