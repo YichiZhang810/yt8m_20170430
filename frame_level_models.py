@@ -242,35 +242,35 @@ class LstmModel(models.BaseModel):
     aggregated_model = getattr(video_level_models,
                                FLAGS.video_level_classifier_model)
 
-    print('----------')
-    print('state')
-    print(type(state))
-    print(state)
-    print('----------')
+    # print('----------')
+    # print('state')
+    # print(type(state))
+    # print(state)
+    # print('----------')
 
 
-    state = tf.expand_dims(state,axis=1)
+    # state = tf.expand_dims(state,axis=1)
 
-    print('----------')
-    print('state')
-    print(type(state))
-    print(state)
-    print('----------')
+    # print('----------')
+    # print('state')
+    # print(type(state))
+    # print(state)
+    # print('----------')
 
-    state = tf.expand_dims(state,axis=1)
+    # state = tf.expand_dims(state,axis=1)
 
-    print('----------')
-    print('state')
-    print(type(state))
-    print(state)
-    print('----------')
-    state = slim.convolution(state, FLAGS.num_filters, 1, 1, "SAME")
+    # print('----------')
+    # print('state')
+    # print(type(state))
+    # print(state)
+    # print('----------')
+    # state = slim.convolution(state, FLAGS.num_filters, 1, 1, "SAME")
 
-    print('----------')
-    print('state')
-    print(type(state))
-    print(state)
-    print('----------')
+    # print('----------')
+    # print('state')
+    # print(type(state))
+    # print(state)
+    # print('----------')
 
 
     return aggregated_model().create_model(
