@@ -16,7 +16,7 @@ from normalization_ops_modern import layer_norm
 
 from linear_modern import linear
 
-from tensorflow.contrib.rnn import RNNCell    
+from tensorflow.contrib.rnn import RNNCell
 
 
 class HighwayRNNCell(RNNCell):
@@ -57,6 +57,11 @@ class HighwayRNNCell(RNNCell):
         gate_for_hidden_factor = 1.0 - gate_for_highway_factor
 
       current_state = highway_factor * gate_for_highway_factor + current_state * gate_for_hidden_factor
+
+    print('-------')
+    print('current_state')
+    print(current_state)
+    print('-------')
 
     return current_state, current_state
 
