@@ -8,11 +8,12 @@ import math, numpy as np, itertools
 from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
 import linear_modern as linear
-# import tf.nn.rnn_cell
+from tensorflow.contrib.rnn import RNNCell
+
 import highway_network_modern
 
 
-RNNCell = tf.nn.rnn_cell.RNNCell
+# RNNCell = tf.contrib.rnn_cell.RNNCell
 
 
 '''the classes here contain integrative multiplication versions of the RNN which converge faster and lead to better scores
