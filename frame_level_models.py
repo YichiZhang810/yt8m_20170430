@@ -51,6 +51,8 @@ flags.DEFINE_integer("rhn_cells", 512, "Number of RHN cells.")
 flags.DEFINE_integer("rhn_layers", 1, "Number of RHN layers.")
 flags.DEFINE_integer("rhn_depth", 5, "Depth of the RHN cells")
 
+flags.DEFINE_integer("num_filters", 32, "Number of 1D convolution filters")
+
 class FrameLevelLogisticModel(models.BaseModel):
 
   def create_model(self, model_input, vocab_size, num_frames, **unused_params):
