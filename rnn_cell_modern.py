@@ -58,10 +58,10 @@ class HighwayRNNCell(RNNCell):
 
       current_state = highway_factor * gate_for_highway_factor + current_state * gate_for_hidden_factor
 
-    print('-------')
-    print('current_state')
-    print(current_state)
-    print('-------')
+      print('-------')
+      print('current_state')
+      print(current_state)
+      print('-------')
 
     return current_state, current_state
 
