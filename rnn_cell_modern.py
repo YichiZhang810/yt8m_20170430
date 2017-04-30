@@ -42,6 +42,10 @@ class HighwayRNNCell(RNNCell):
 
   def __call__(self, inputs, state, timestep = 0, scope=None):
     current_state = state
+    print('-------')
+    print('current_state')
+    print(current_state)
+    print('-------')
     for highway_layer in xrange(self.num_highway_layers):
       with tf.variable_scope('highway_factor_'+str(highway_layer)):
         if self.use_inputs_on_each_layer or highway_layer == 0:
@@ -58,10 +62,7 @@ class HighwayRNNCell(RNNCell):
 
       current_state = highway_factor * gate_for_highway_factor + current_state * gate_for_hidden_factor
 
-      print('-------')
-      print('current_state')
-      print(current_state)
-      print('-------')
+
 
     return current_state, current_state
 
