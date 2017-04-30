@@ -266,11 +266,17 @@ class LstmModel(models.BaseModel):
     # print('----------')
     # state = slim.convolution(state, FLAGS.num_filters, 1, 1, "SAME")
 
-    # print('----------')
-    # print('state')
-    # print(type(state))
-    # print(state)
-    # print('----------')
+    print('----------')
+    print('model')
+    print(type(aggregated_model().create_model(
+        model_input=state[-1].h,
+        vocab_size=vocab_size,
+        **unused_params)))
+    print(aggregated_model().create_model(
+        model_input=state[-1].h,
+        vocab_size=vocab_size,
+        **unused_params))
+    print('----------')
 
 
     return aggregated_model().create_model(
