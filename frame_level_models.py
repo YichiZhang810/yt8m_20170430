@@ -227,6 +227,12 @@ class LstmModel(models.BaseModel):
 
     loss = 0.0
 
+    print('----------')
+    print('stacked_lstm')
+    print(type(stacked_lstm))
+    print(stacked_lstm)
+    print('----------')
+
     cell = rnn_cell_modern.HighwayRNNCell(512, num_highway_layers = 3)
     outputs, state = tf.nn.dynamic_rnn(stacked_lstm, model_input,
                                        sequence_length=num_frames,
