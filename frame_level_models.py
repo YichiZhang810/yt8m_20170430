@@ -266,7 +266,9 @@ class LstmModel(models.BaseModel):
 
     loss = 0.0
 
-    outputs, state = tf.nn.dynamic_rnn(stacked_lstm, model_input,
+    cell = rnn_cell_modern.HighwayRNNCell(lstm_size, num_highway_layers = number_of_layers)
+
+    outputs, state = tf.nn.dynamic_rnn(cell, model_input,
                                        sequence_length=num_frames,
                                        dtype=tf.float32)
 
@@ -277,16 +279,16 @@ class LstmModel(models.BaseModel):
     print('------------')
 
 
-    rnn_cell = rnn_cell_modern.Delta_RNN(model_input, num_units = 1024)
+    # rnn_cell = rnn_cell_modern.Delta_RNN(model_input, num_units = 1024)
 
     # To Call
-    output, new_state = rnn_cell(model_input, state)
+    # output, new_state = rnn_cell(model_input, state)
 
-    print('------------')
-    print('new_state')
-    print(type(new_state))
-    print(new_state)
-    print('------------')
+    # print('------------')
+    # print('new_state')
+    # print(type(new_state))
+    # print(new_state)
+    # print('------------')
 
     aggregated_model = getattr(video_level_models,
                                FLAGS.video_level_classifier_model)
