@@ -5,10 +5,10 @@ from __future__ import print_function
 import math, numpy as np
 from six.moves import xrange 
 import tensorflow as tf
-from tensorflow.python.ops.nn import rnn_cell
+from tensorflow.contrib.rnn import RNNCell
 from linear_modern import linear
 
-RNNCell = rnn_cell.RNNCell
+# RNNCell = rnn_cell.RNNCell
 
 
 class MultiRNNCell(RNNCell):

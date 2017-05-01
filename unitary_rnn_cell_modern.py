@@ -9,7 +9,8 @@ Reference http://arxiv.org/abs/1511.06464
 import numpy as np
 
 import tensorflow as tf
-rnn_cell = tf.nn.rnn_cell
+from tensorflow.contrib.rnn import RNNCell
+# rnn_cell = tf.nn.rnn_cell
 
 from complex_util import *
 
@@ -73,7 +74,7 @@ def batch_fht(input):
     return tf.reshape(output, in_shape)
 
 
-class UnitaryRNNCell(rnn_cell.RNNCell):
+class UnitaryRNNCell(RNNCell):
     def __init__(self, num_units, input_size=None, transform='fourier'):
         self._num_units = num_units
         self._input_size = num_units if input_size==None else input_size
@@ -112,7 +113,7 @@ class UnitaryRNNCell(rnn_cell.RNNCell):
         return out, out_state
 
 
-class UnitaryWrapperCell(rnn_cell.RNNCell):
+class UnitaryWrapperCell(RNNCell):
     '''this cell allows you to input unitary hidden states into an additional cell 'secondary_cell'
     For example you can do 
     Unitary --> LSTM --> output
