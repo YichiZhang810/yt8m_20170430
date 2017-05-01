@@ -140,33 +140,27 @@ class LstmModel(models.BaseModel):
 
     loss = 0.0
 
-    outputs, state = tf.nn.dynamic_rnn(stacked_lstm, model_input,
+    tmp_outputs, state = tf.nn.dynamic_rnn(stacked_lstm, model_input,
                                        sequence_length=num_frames,
                                        dtype=tf.float32)
 
     print('------------')
-    print('outputs')
-    print(type(outputs))
-    print(outputs)
+    print('tmp_outputs')
+    print(type(tmp_outputs))
+    print(tmp_outputs)
     print('------------')
 
+    tmp_outputs = tf.reduce_mean(tmp_outputs, 1)
 
-    # rnn_cell = rnn_cell_modern.Delta_RNN(model_input, num_units = 1024)
+    print('------------')
+    print('tmp_outputs')
+    print(type(tmp_outputs))
+    print(tmp_outputs)
+    print('------------')
+    
+    output = slim.fully_connected(
+        tmp_outputs, vocab_size, activation_fn=tf.nn.sigmoid,
+        weights_regularizer=slim.l2_regularizer(l2_penalty))
 
-    # To Call
-    # output, new_state = rnn_cell(model_input, state)
-
-    # print('------------')
-    # print('new_state')
-    # print(type(new_state))
-    # print(new_state)
-    # print('------------')
-
-    aggregated_model = getattr(video_level_models,
-                               FLAGS.video_level_classifier_model)
-
-    return aggregated_model().create_model(
-        model_input=state[-1].h,
-        vocab_size=vocab_size,
-        **unused_params)
+    return {"predictions": output}
 
