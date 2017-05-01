@@ -268,6 +268,13 @@ class LstmModel(models.BaseModel):
 
     cell = rnn_cell_modern.HighwayRNNCell(lstm_size, num_highway_layers = number_of_layers)
 
+    print('-------------')
+    print('cell')
+    print(type(cell))
+    print(cell)
+    print('-------------')
+
+
     outputs, state = tf.nn.dynamic_rnn(cell, model_input,
                                        sequence_length=num_frames,
                                        dtype=tf.float32)
