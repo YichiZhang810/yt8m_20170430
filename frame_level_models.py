@@ -250,7 +250,7 @@ class LstmModel(models.BaseModel):
            frames for each video (before padding).
 
     Returns:
-      A dictionary with a tensor containing the probability predictions of the
+      A dictionary with a tensor containing the probability predictions ofRNNCell the
       model in the 'predictions' key. The dimensions of the tensor are
       'batch_size' x 'num_classes'.
     """
@@ -277,7 +277,7 @@ class LstmModel(models.BaseModel):
     print('------------')
 
 
-    rnn_cell = rnn_cell_modern.Delta_RNN(model_input, num_units = None)
+    rnn_cell = rnn_cell_modern.Delta_RNN(model_input, num_units = 1024)
 
     # To Call
     output, new_state = rnn_cell(model_input, state)

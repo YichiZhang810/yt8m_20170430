@@ -9,7 +9,7 @@ Reference http://arxiv.org/abs/1511.06464
 import numpy as np
 
 import tensorflow as tf
-from tensorflow.contrib.rnn import RNNCell
+from tensorflow.python.ops.rnn_cell_impl import _RNNCell as RNNCell
 # rnn_cell = tf.nn.rnn_cell
 
 from complex_util import *

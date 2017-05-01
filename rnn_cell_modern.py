@@ -8,7 +8,7 @@ import tensorflow as tf
 
 # from multiplicative_integration import multiplicative_integration, multiplicative_integration_for_multiple_inputs
 
-from tensorflow.contrib.rnn import RNNCell
+from tensorflow.python.ops.rnn_cell_impl import _RNNCell as RNNCell
 import highway_network_modern
 from multiplicative_integration_modern import multiplicative_integration
 from normalization_ops_modern import layer_norm

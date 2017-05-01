@@ -5,7 +5,7 @@ from __future__ import print_function
 import math, numpy as np
 from six.moves import xrange 
 import tensorflow as tf
-from tensorflow.contrib.rnn import RNNCell
+from tensorflow.python.ops.rnn_cell_impl import _RNNCell as RNNCell
 from linear_modern import linear
 
 # RNNCell = rnn_cell.RNNCell
