@@ -277,7 +277,7 @@ class LstmModel(models.BaseModel):
     print('------------')
 
 
-    rnn_cell = rnn_cell_modern.Delta_RNN(model_input, num_units = 1024)
+    rnn_cell = rnn_cell_modern.Delta_RNN(model_input, num_units = None)
 
     # To Call
     output, new_state = rnn_cell(model_input, state)
