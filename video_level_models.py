@@ -44,6 +44,15 @@ class LogisticModel(models.BaseModel):
     output = slim.fully_connected(
         model_input, vocab_size, activation_fn=tf.nn.sigmoid,
         weights_regularizer=slim.l2_regularizer(l2_penalty))
+
+    print('----------')
+    print('output')
+    print(type(output))
+    print(output)
+
+    print('----------')
+
+
     return {"predictions": output}
 
 class MoeModel(models.BaseModel):
@@ -101,3 +110,63 @@ class MoeModel(models.BaseModel):
     final_probabilities = tf.reshape(final_probabilities_by_class_and_batch,
                                      [-1, vocab_size])
     return {"predictions": final_probabilities}
+
+class LstmModel(models.BaseModel):
+
+  def create_model(self, model_input, vocab_size, num_frames, **unused_params):
+    """Creates a model which uses a stack of LSTMs to represent the video.
+
+    Args:
+      model_input: A 'batch_size' x 'max_frames' x 'num_features' matrix of
+                   input features.
+      vocab_size: The number of classes in the dataset.
+      num_frames: A vector of length 'batch' which indicates the number of
+           frames for each video (before padding).
+
+    Returns:
+      A dictionary with a tensor containing the probability predictions ofRNNCell the
+      model in the 'predictions' key. The dimensions of the tensor are
+      'batch_size' x 'num_classes'.
+    """
+    lstm_size = FLAGS.lstm_cells
+    number_of_layers = FLAGS.lstm_layers
+
+    stacked_lstm = tf.contrib.rnn.MultiRNNCell(
+            [
+                tf.contrib.rnn.BasicLSTMCell(
+                    lstm_size, forget_bias=1.0)
+                for _ in range(number_of_layers)
+                ])
+
+    loss = 0.0
+
+    outputs, state = tf.nn.dynamic_rnn(stacked_lstm, model_input,
+                                       sequence_length=num_frames,
+                                       dtype=tf.float32)
+
+    print('------------')
+    print('outputs')
+    print(type(outputs))
+    print(outputs)
+    print('------------')
+
+
+    # rnn_cell = rnn_cell_modern.Delta_RNN(model_input, num_units = 1024)
+
+    # To Call
+    # output, new_state = rnn_cell(model_input, state)
+
+    # print('------------')
+    # print('new_state')
+    # print(type(new_state))
+    # print(new_state)
+    # print('------------')
+
+    aggregated_model = getattr(video_level_models,
+                               FLAGS.video_level_classifier_model)
+
+    return aggregated_model().create_model(
+        model_input=state[-1].h,
+        vocab_size=vocab_size,
+        **unused_params)
+
