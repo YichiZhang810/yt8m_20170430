@@ -280,9 +280,9 @@ class LstmModel(models.BaseModel):
                                        dtype=tf.float32)
 
     print('------------')
-    print('state')
-    print(type(state))
-    print(state)
+    print('outputs')
+    print(type(outputs))
+    print(outputs)
     print('------------')
 
 
