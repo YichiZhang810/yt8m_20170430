@@ -8,15 +8,14 @@ import tensorflow as tf
 
 # from multiplicative_integration import multiplicative_integration, multiplicative_integration_for_multiple_inputs
 
-# from tensorflow.nn import rnn_cell
-import tensorflow as tf
+from tensorflow.python.ops.nn import rnn_cell
 import highway_network_modern
 from multiplicative_integration_modern import multiplicative_integration
 from normalization_ops_modern import layer_norm
 
 from linear_modern import linear
 
-from tensorflow.contrib.rnn import RNNCell
+RNNCell = rnn_cell.RNNCell
 
 
 class HighwayRNNCell(RNNCell):
@@ -42,10 +41,6 @@ class HighwayRNNCell(RNNCell):
 
   def __call__(self, inputs, state, timestep = 0, scope=None):
     current_state = state
-    print('-------')
-    print('current_state')
-    print(current_state)
-    print('-------')
     for highway_layer in xrange(self.num_highway_layers):
       with tf.variable_scope('highway_factor_'+str(highway_layer)):
         if self.use_inputs_on_each_layer or highway_layer == 0:
@@ -61,8 +56,6 @@ class HighwayRNNCell(RNNCell):
         gate_for_hidden_factor = 1.0 - gate_for_highway_factor
 
       current_state = highway_factor * gate_for_highway_factor + current_state * gate_for_hidden_factor
-
-
 
     return current_state, current_state
 
